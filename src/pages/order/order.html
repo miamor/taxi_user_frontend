@@ -1,0 +1,153 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Đặt xe</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="map-view" ion-content scroll="false" no-bounce>
+  <div #map id="map" data-tap-disabled="true"></div>
+
+  <form class="trip-add trip-filter padding" id="pac-sidebar">
+    <div class="trip-from">
+      <input class="form-control" data-tap-disabled="true" autocomplete="disabled" id="pac-from" type="text" name="from"
+        placeholder="Điểm đi *" />
+    </div>
+    <div class="trip-to">
+      <input class="form-control" data-tap-disabled="true" autocomplete="disabled" id="pac-to" type="text" name="to"
+        placeholder="Điểm đến *" />
+    </div>
+  </form>
+
+  <div class="choose-seats">
+    <div class="seats-type" style="width:270px">
+      <a href="#" id="seat4" (click)="select_seat(4)" class="sone">
+        <img src="http://localhost/4.png" alt="4 chỗ" height="26" width="26">
+        <span class="small">4 chỗ</span>
+      </a>
+      <a href="#" id="seat5" (click)="select_seat(5)" class="sone">
+        <img src="http://localhost/5.png" alt="5 chỗ" height="26" width="26">
+        <span class="small">5 chỗ</span>
+      </a>
+      <a href="#" id="seat7" (click)="select_seat(7)" class="sone">
+        <img src="http://localhost/7.png" alt="7 chỗ" height="26" width="26">
+        <span class="small">7 chỗ</span>
+      </a>
+      <a href="#" id="seat16" (click)="select_seat(16)" class="sone">
+        <img src="http://localhost/16.png" alt="16 chỗ" height="26" width="26">
+        <span class="small">16 chỗ</span>
+      </a>
+      <div class="clearfix"></div>
+    </div>
+    <input type="hidden" id="seat" name="seat" />
+    <button ion-button class="button button-assertive button-block" (click)="request_first()">Đặt xe</button>
+  </div>
+
+  <div class="trip-info hide">
+    <div id="floating-panel">
+      <div class="form-group">
+        <div class="col-lg-1 control-label no-padding">From</div>
+        <div class="col-lg-11 no-padding-right">
+          <input id="start" type="text" name="from" readonly />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-1 control-label no-padding">To</div>
+        <div class="col-lg-11 no-padding-right">
+          <input id="end" type="text" name="to" readonly />
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <select id="travelMode" class="hide">
+      <option value="DRIVING" selected>DRIVING</option>
+    </select>
+    <div id="warnings-panel"></div>
+
+    <div id="box-search-one-route">
+      <span id="box-search-one-distance"></span>
+      |
+      <span id="box-search-one-time"></span>
+    </div>
+
+  </div>
+  <!-- .trip-info -->
+
+
+  <form #orderForm="ngForm" id="trip-user-details">
+    <div id="tripInfo"></div>
+    <button ion-button class="button button-assertive button-small" (click)="goback()">Sửa</button>
+
+    <div class="divide"></div>
+
+    <ion-item class="form-group">
+      <label>Tên *</label>
+      <ion-input [(ngModel)]="params.name" type="text" name="name" id="name" placeholder="Tên *"></ion-input>
+    </ion-item>
+
+    <ion-item class="form-group" style="margin-bottom:10px">
+      <label>Số điện thoại *</label>
+      <ion-input [(ngModel)]="params.phone" type="text" name="phone" id="phone" placeholder="Số điện thoại *">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="form-group">
+      <label>Số khách *</label>
+      <ion-input [(ngModel)]="params.guess_num" type="number" min="1" name="guess_num" id="guess_num"
+        placeholder="Số khách *"></ion-input>
+    </ion-item>
+
+    <ion-item class="form-group">
+      <div>
+        <label>Thời gian *</label>
+      </div>
+      <!-- <ion-input (click)="openDatePicker()" type="text" name="time_date" id="time_date"
+        placeholder="Ngày *"></ion-input>
+      <ion-input (click)="openTimePicker()" type="text" name="time_time" id="time_time"
+        placeholder="Giờ *"></ion-input> -->
+      <ion-datetime [(ngModel)]="params.time_date" name="time_date" id="time_date" placeholder="Ngày *"
+        displayFormat="MMM DD, YYYY" pickerFormat="MMM DD, YYYY"></ion-datetime>
+      <ion-datetime [(ngModel)]="params.time_time" name="time_time" id="time_time" placeholder="Giờ *"
+        displayFormat="HH:mm" pickerFormat="HH:mm"></ion-datetime>
+    </ion-item>
+
+    <!-- <ion-item class="form-group">
+      <label>1 chiều/2 chiều *</label>
+      <ion-select [(ngModel)]="params.is_round" id="is_round" name="is_round">
+        <ion-option value="0">1 chiều</ion-option>
+        <ion-option value="1">2 chiều</ion-option>
+      </ion-select>
+    </ion-item> -->
+
+    <ion-list class="form-group" radio-group [(ngModel)]="params.is_round" name="is_round" id="is_round">
+      <ion-item>
+        <ion-label>1 chiều</ion-label>
+        <ion-radio slot="start" value="0" checked></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>2 chiều</ion-label>
+        <ion-radio slot="start" value="1"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-item class="form-group">
+      <label>Mã PNR </label>
+      <ion-input [(ngModel)]="params.PNR" type="text" name="PNR" id="PNR" placeholder="Mã PNR"></ion-input>
+    </ion-item>
+
+    <ion-item class="form-group">
+      <label>Ghi chú </label>
+      <ion-textarea [(ngModel)]="params.details" name="details" id="details" placeholder="Ghi chú"></ion-textarea>
+    </ion-item>
+
+    <div class="add-form-submit center">
+      <button ion-button class="button" type="reset" value="Nhập lại"></button>
+      <button ion-button class="button button-assertive" (click)="request(orderForm)">Đặt xe</button>
+    </div>
+  </form>
+</ion-content>

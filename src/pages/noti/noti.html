@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Thông báo khuyến mãi</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="refresh_list($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngFor="let list of dataList | keys" class="list-{{list.key}}"><div *ngIf="list.key !== 'total'">
+    <ion-item *ngFor="let promotion of dataList[list.key]" (click)="goToDetail(promotion)" class="item item-remove-animate history-item" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" type="item-text-wrap">
+      <h3>
+        <b>Thời gian bắt đầu: {{promotion.timeFrom}}</b>
+      </h3>
+      <h3>
+        <b>Thời gian kết thúc: {{promotion.timeTo}}</b>
+      </h3>
+      <p class="animated fadeIn">
+        Nội dung: {{promotion.details}}
+      </p>
+    </ion-item></div>
+  </ion-list>
+
+</ion-content>

@@ -1,5 +1,7 @@
 {
   "name": "taxi_user_frontend_v2",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

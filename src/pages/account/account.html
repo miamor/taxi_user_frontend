@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="book-div" *ngIf="user_info">
+      {{user_info.name}}
+      <div class="clearfix"></div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding *ngIf="user_info">
+  <div class="account-info" style="margin-bottom:0">
+    <div class="card">
+      <div class="item item-text-wrap">
+        <h1 class="box-blue">{{user_info.name}}</h1>
+        <div class="account-one-info">
+          <span class="col-lg-3">Tên đăng nhập: </span>
+          <span class="col-lg-9">{{user_info.username}}</span>
+        </div>
+        <div class="account-one-info">
+          <span class="col-lg-3">Tên chủ tài khoản: </span>
+          <span class="col-lg-9">{{user_info.name}}</span>
+        </div>
+        <div class="account-one-info">
+          <span class="col-lg-3">Số điện thoại: </span>
+          <span class="col-lg-9">{{user_info.phone}}</span>
+        </div>
+        <div class="account-one-info">
+          <span class="col-lg-3">Địa chỉ: </span>
+          <span class="col-lg-9">{{user_info.typecar}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

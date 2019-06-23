@@ -14,3 +14,112 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto|Lato|Open+Sans');
+
+body {
+  color: #303030
+}
+
+* {
+  line-height: 24px;
+  font-size: 14px;
+  font-family: 'Lato'
+}
+
+.toolbar-title-md {
+  font-size: 1.7rem !important
+}
+
+a {
+  text-decoration: none !important
+}
+
+h4 {
+  margin: 5px 0 !important
+}
+
+#ion-diagnostics-toast {
+  margin-top: -20px !important
+}
+
+ul {
+  margin: 0;
+  list-style: none;
+  padding: 0
+}
+
+.hidden {
+  display: none !important
+}
+
+.header-md:after {
+  background: transparent !important;
+  box-shadow: none !important
+}
+
+
+.taxi-coin {
+  float: right;
+  color: #c6c911
+}
+
+.left {
+  float: left
+}
+
+.right {
+  float: right
+}
+
+.clearfix,
+.clear {
+  clear: both !important
+}
+
+.bar-button-menutoggle{
+    display: inline-block
+}
+
+/*.custom-tabs {
+  position: sticky;
+  top: 0;
+  height: 44px;
+  background: rgba(255, 255, 255, .95);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 3px 3px -3px rgba(0, 0, 0, .2);
+  text-align: center
+}
+
+.custom-tabs+.content>.fixed-content,
+.custom-tabs+.content>.scroll-content {
+  margin-top: 99px!important
+}*/
+
+.custom-tabs a {
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  color: #929292;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  height: 100%;
+  padding: 10px 10px 3px;
+  cursor: pointer;
+  margin-bottom: -1px
+}
+
+.custom-tabs a.active {
+  color: color($colors, primary);
+  border-bottom-color: color($colors, primary)
+}
+
+.custom-tabs-content {
+  margin-top: 0
+}
+
+

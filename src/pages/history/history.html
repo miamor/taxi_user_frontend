@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="book-div">
+      Lịch sử chuyến đi
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="refresh_list($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngFor="let list of dataList | keys" class="list-{{list.key}}">
+    <div *ngIf="list.key !== 'total'">
+      <div *ngFor="let oneTrip of list.value" (click)="goToDetail(oneTrip)"
+        class="item item-remove-animate trip-item item-avatar" type="item-text-wrap">
+        <div id="pricebuy_trip_{{oneTrip.id}}" class="pricebuy trip-pricecoin">
+          {{oneTrip.price}}<span class="small">k</span>
+        </div>
+        <div class="animated fadeIn">
+          <span class="trip-time">{{oneTrip.time}}</span>
+        </div>
+        <h3 class="trip-destinations">
+          <b>{{oneTrip.addressfrom}}</b>
+          <ion-icon name="arrow-forward" *ngIf="oneTrip.is_one_round"></ion-icon>
+          <ion-icon name="swap" *ngIf="oneTrip.is_round"></ion-icon>
+          <b>{{oneTrip.addressto}}</b>
+        </h3>
+        <div class="trip-info">
+          <span class="trip-seat">{{oneTrip.seat}} chỗ</span>
+          <span class="trip-num_guess">{{oneTrip.num_guess}} khách</span>
+          <span *ngIf="oneTrip.is_round" class="trip-is_round">{{oneTrip.is_round_txt}}</span>
+        </div>
+        <time id="time_trip_{{oneTrip.id}}" [innerHTML]="oneTrip.time_diff"></time>
+        <div *ngIf="oneTrip.coin <= 0" class="label-msg">Chuyến chưa có sẵn</div>
+        <div *ngIf="oneTrip.seat > user_info.seat" class="label-msg">Xe không đủ chỗ</div>
+        <div *ngIf="oneTrip.coin > user_info.coin" class="label-msg">Tài khoản không đủ tiền</div>
+        <div *ngIf="oneTrip.taxiid" class="label-msg">Đã có người mua</div>
+      </div>
+    </div>
+  </ion-list>
+
+
+</ion-content>
